@@ -2,9 +2,9 @@
 #include <vector>
 using namespace std;
 
-int maxPairWiseProduct(const vector<int> &numbers)
+long long maxPairWiseProduct(const vector<long long> &numbers)
 {
-    int prod = 0;
+    long long prod = 0;
     int n = numbers.size();
     for (int i = 0; i < n; i++)
         for (int j = i + 1; j < n; j++)
@@ -16,7 +16,7 @@ int main()
 {
     int n;
     cin >> n;
-    vector<int> numbers(n);
+    vector<long long> numbers(n);
     for (int i = 0; i < n; i++)
         cin >> numbers[i];
 
