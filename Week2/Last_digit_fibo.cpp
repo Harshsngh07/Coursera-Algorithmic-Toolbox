@@ -1,21 +1,15 @@
 #include <bits/stdc++.h>
+#include <vector>
 using namespace std;
 
 long long int fiboFast(long long int n)
 {
-    if (n == 0 or n == 1)
-        return n;
-
-    long long int arr[n];
-
-    long long int a = 0, b = 1, c;
-    for (int i = 0; i < n - 1; i++)
-    {
-        c = a + b;
-        a = b;
-        b = c;
-    }
-    return fabs(c % 10);
+    vector<long long> fib(n + 1);
+    fib[0] = 0;
+    fib[1] = 1;
+    for (int i = 2; i <= n; i++)
+        fib[i] = (fib[i - 1] % 10 + fib[i - 2] % 10) % 10;
+    return fib[n];
 }
 
 int main()
