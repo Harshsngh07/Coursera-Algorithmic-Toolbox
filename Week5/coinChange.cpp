@@ -1,35 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
-int get_change(int m, int coins[], int T, int dp[])
+int CountMinWays(int Coins[], int n, int Money)
 {
-    //write your code here
-
-    if(m==0)
-        return 0;
-    
-    if(dp[m]!=0)
-        return dp[m];
-
-    int ans = INT_MAX;
-    for(int i=0;i<T;i++)
+    vector<int> Ways(Money + 1, INT_MAX);
+    Ways[0] = 0;
+    for (int i = 1; i <= Money; i++)
     {
-        if(m-coins[i]>=0)
+        for (int c = 0; c < n; c++)
         {
-            int sub = get_change(m-coins[i], coins, T, dp);
-            ans = min(ans, sub+1);
+            if (i >= Coins[c])
+            {
+                int sub_res = Ways[i - Coins[c]];
+                if (sub_res != INT_MAX && sub_res + 1 < Ways[i])
+                    Ways[i] = sub_res + 1;
+            }
         }
-    }    
-    
-    dp[m] = ans;
-    return dp[m];
+    }
+    return Ways[Money];
 }
-
 int main()
 {
-    int m;
-    cin >> m;
-    int dp[100] = {0};
-    int coins[3] = {1,3,4};
-    int T = sizeof(coins)/sizeof(int);
-    cout << get_change(m,coins, T, dp) << '\n';
+    int Money;
+    cin >> Money;
+    int Coins[3] = {1, 3, 4};
+    cout << CountMinWays(Coins, 3, Money) << endl;
 }
