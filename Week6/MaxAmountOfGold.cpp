@@ -1,22 +1,46 @@
-#include<bits/stdc++.h>
+/*Author : Abdallah Hemdan */
+/***********************************************/
+/*
+___  __
+* |\  \|\  \
+* \ \  \_\  \
+*  \ \   ___ \emdan
+*   \ \  \\ \ \
+*    \ \__\\ \_\
+*     \|__| \|__|
+*/
+
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <iomanip>
+#include <vector>
+#include <functional>
+#define all(v) v.begin(), v.end()
+#define mp make_pair
+#define pb push_back
+#define endl '\n'
+
+typedef long long int ll;
+
+// freopen("input.txt","r",stdin);
+// freopen("output.txt","w",stdout);
+
 using namespace std;
-
-int KnapSack(int W, int wt[], int value[],int n)
+int _0_1_KnapSack(int W, vector<int> val, vector<int> wt, int n)
 {
-    int i, w;
-    int K[n + 1][W + 1];
 
-    // Build table K[][] in bottom up manner
-    for (i = 0; i <= n; i++)
+    vector<vector<int>> K(n + 1, vector<int>(W + 1));
+    for (int i = 0; i <= n; i++)
     {
-        for (w = 0; w <= W; w++)
+        for (int w = 0; w <= W; w++)
         {
             if (i == 0 || w == 0)
                 K[i][w] = 0;
             else if (wt[i - 1] <= w)
-                K[i][w] = max(
-                    value[i-1]+ K[i - 1][w - wt[i - 1]],
-                    K[i - 1][w]);
+                K[i][w] = max(val[i - 1] + K[i - 1][w - wt[i - 1]], K[i - 1][w]);
             else
                 K[i][w] = K[i - 1][w];
         }
@@ -27,11 +51,16 @@ int KnapSack(int W, int wt[], int value[],int n)
 
 int main()
 {
-    int W,n;
-    cin >> W>>n;
-    int a[n];
-    for(int i=0;i<n;i++)
-        cin >> a[i];
-    
-    cout << KnapSack(W,a,a,n) << endl;
+    int n, Capas;
+    cin >> Capas >> n;
+
+    vector<int> Values(n);
+    vector<int> Weights(n);
+    int Temp;
+    for (size_t i = 0; i < n; i++)
+    {
+        cin >> Temp;
+        Values[i] = Weights[i] = Temp;
+    }
+    cout << _0_1_KnapSack(Capas, Values, Weights, n) << endl;
 }
